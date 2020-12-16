@@ -10,11 +10,17 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-
-- script: |
-    cmake -A x64 ..
-    msbuild JIN4_OutilVisu_Etape8.sln
-  displayName: 'Building with cmake'
+- task: CMake@1
+  inputs:
+    workingDirectory: 'build'
+    cmakeArgs: -A x64 ..
+  displayName: 'Cmake'
+  
+- task: MSBuild@1
+  inputs:
+    solution: 'build/JIN4_OutilVisu_Etape8.sln'
+    msbuildArchitecture: 'x64'
+  displayName: 'Building'
 
 - script: unitTests\Debug\unitTests.exe
   displayName: 'Run unitTests'
