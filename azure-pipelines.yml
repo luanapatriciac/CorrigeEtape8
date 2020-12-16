@@ -22,5 +22,8 @@ steps:
     msbuildArchitecture: 'x64'
   displayName: 'Building'
 
+- script: dir
+  displayName: 'Which directory'
+  
 - script: unitTests\Debug\unitTests.exe
   displayName: 'Run unitTests'
