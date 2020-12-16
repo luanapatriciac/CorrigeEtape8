@@ -22,8 +22,8 @@ steps:
       platform: 'x64'
     displayName: 'Building'
 
-  - script: dir 
+  - script: dir unitTests
     displayName: 'Which directory'
     
-  - script: unitTests\Debug\unitTests.exe
+  - script: build\unitTests\Debug\unitTests.exe
     displayName: 'Run unitTests'
