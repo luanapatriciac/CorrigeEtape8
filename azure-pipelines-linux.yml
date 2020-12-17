@@ -1,0 +1,35 @@
+# C/C++ with GCC
+# Build your C/C++ project with GCC using make.
+# Add steps that publish test results, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
+
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  version: 3.19
+  build: 1
+
+steps:
+- script: |
+    sudo apt-get install libx11-dev
+    sudo apt-get install xorg-dev
+    sudo apt-get install freeglut3-dev
+    sudo apt-get install libudev-dev
+    mkdir build
+    cd build
+    cmake ..
+  displayName: 'Install libaries'
+  
+- script: |
+    mkdir ~/temp
+    cd ~/temp
+    wget https://cmake.org/files/v$version/cmake-$(version).$build.tar.gz
+    cd cmake-$(version).$(build)/
+    ./bootstrap
+    make -j$(nproc)
+    sudo make install
+  displayName: 'Install Cmake'
