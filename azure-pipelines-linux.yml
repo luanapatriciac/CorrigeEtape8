@@ -22,6 +22,7 @@ steps:
     sudo apt-get install libopenal-dev
     sudo apt-get install libvorbis-dev
     sudo apt-get install libpthread-stubs0-dev
+    sudo apt-get install libflac++-dev
   displayName: 'Install libaries'
   
 - script: |
@@ -38,7 +39,11 @@ steps:
     mkdir build
     cd build
     cmake ..
+    make
   displayName: 'Run Cmake'
 
 - script: ls build
   displayName: "list directory"
+
+- script: unitTests/unitTests
+  displayName: "UnitTest"
