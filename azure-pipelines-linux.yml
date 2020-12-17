@@ -39,3 +39,6 @@ steps:
     cd build
     cmake ..
   displayName: 'Run Cmake'
+
+- script: ls build
+  displayName: "list directory"
