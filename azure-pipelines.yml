@@ -21,9 +21,6 @@ steps:
       maximumCpuCount: true
       platform: 'x64'
     displayName: 'Building'
-
-  - script: dir unitTests
-    displayName: 'Which directory'
     
   - script: build\unitTests\Debug\unitTests.exe
     displayName: 'Run unitTests'
