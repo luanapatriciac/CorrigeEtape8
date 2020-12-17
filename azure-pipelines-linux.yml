@@ -43,8 +43,5 @@ steps:
     make
   displayName: 'Run Cmake'
 
-- script: ls build/unitTests
-  displayName: "list directory"
-
 - script: build/unitTests/unitTests
   displayName: "UnitTest"
