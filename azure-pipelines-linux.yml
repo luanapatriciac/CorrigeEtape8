@@ -19,9 +19,9 @@ steps:
     sudo apt-get install xorg-dev
     sudo apt-get install freeglut3-dev
     sudo apt-get install libudev-dev
-    mkdir build
-    cd build
-    cmake ..
+    sudo apt-get install libopenal-dev
+    sudo apt-get install libvorbis-dev
+    sudo apt-get install libpthread-stubs0-dev
   displayName: 'Install libaries'
   
 - script: |
@@ -33,3 +33,9 @@ steps:
     make -j$(nproc)
     sudo make install
   displayName: 'Install Cmake'
+
+- script: |
+    mkdir build
+    cd build
+    cmake ..
+  displayName: 'Run Cmake'
