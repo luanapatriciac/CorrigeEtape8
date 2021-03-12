@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: macOS-latest
+
+steps:
+- script: brew install sfml 
+  displayName: 'Install libaries'
+
+- script: |
+    mkdir build
+    cd build
+    cmake ..
+  displayName: 'Run Cmake'
+  
+- script: |
+    cd build
+    make
+  displayName: 'make'
+
+- script: build/unitTests/unitTests
+  displayName: "UnitTest"
