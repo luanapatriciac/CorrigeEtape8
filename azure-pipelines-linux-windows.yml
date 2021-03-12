@@ -10,50 +10,50 @@ jobs:
 - job: Ubuntu
   displayName: 'Build Ubuntu'
 
-	pool:
-	  vmImage: 'ubuntu-latest'
+  pool:
+    vmImage: 'ubuntu-latest'
 
-	variables:
-	  version: 3.19
-	  build: 1
+  variables:
+    version: 3.19
+    build: 1
 
-	steps:
-	- script: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev 
-    libvorbis-dev libpthread-stubs0-dev libflac++-dev
-	displayName: 'Install libaries'
+  steps:
+  - script: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev 
+     libvorbis-dev libpthread-stubs0-dev libflac++-dev
+    displayName: 'Install libaries'
 
-	- script: |
-    mkdir build
-    cd build
-    cmake ..
-  displayName: 'Run Cmake'
-	  
-	- script: |
-    cd build
-    make
-  displayName: 'make'
+  - script: |
+     mkdir build
+     cd build
+     cmake ..
+    displayName: 'Run Cmake'
 
-	- script: build/unitTests/unitTests
-	  displayName: "UnitTest"
+  - script: |
+     cd build
+     make
+    displayName: 'make'
+
+  - script: build/unitTests/unitTests
+    displayName: "UnitTest"
 
 - job: Windows
-displayName: 'Build Windows'
-	  pool:
-      vmImage: 'windows-2019'
+  displayName: 'Build Windows'
+  pool:
+    vmImage: 'windows-2019'
 
-		steps:
-		  - task: CMake@1
-		    inputs:
-		      workingDirectory: 'build'
-		      cmakeArgs: '-A x64 ..'
-		    displayName: 'Cmake'
+  steps:
+  - task: CMake@1
+    inputs:
+     workingDirectory: 'build'
+     cmakeArgs: '-A x64 ..'
+    displayName: 'Cmake'
 
-		  - task: MSBuild@1
-		    inputs:
-		      solution: 'build/JIN4_OutilVisu_Etape8.sln'
-		      maximumCpuCount: true
-		      platform: 'x64'
-		    displayName: 'Building'
-		    
-		  - script: build\unitTests\Debug\unitTests.exe
-		    displayName: 'Run unitTests'
+  - task: MSBuild@1
+    inputs:
+     solution: 'build/JIN4_OutilVisu_Etape8.sln'
+     maximumCpuCount: true
+     platform: 'x64'
+    displayName: 'Building'
+
+  - script: build\unitTests\Debug\unitTests.exe
+    displayName: 'Run unitTests'
