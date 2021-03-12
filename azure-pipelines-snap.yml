@@ -18,8 +18,8 @@ steps:
     libopenal-dev libvorbis-dev libpthread-stubs0-dev libflac++-dev
   displayName: 'Install libaries'
   
-- script: sudo snap install --classic cmake
-  displayName: 'Install Cmake'
+# - script: sudo snap install --classic cmake
+#   displayName: 'Install Cmake'
 
 - script: |
     mkdir build
