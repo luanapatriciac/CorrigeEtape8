@@ -1,0 +1,59 @@
+# C/C++ with GCC
+# Build your C/C++ project with GCC using make.
+# Add steps that publish test results, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/c-cpp/gcc
+
+trigger:
+- main
+
+jobs:
+- job: Ubuntu
+  displayName: 'Build Ubuntu'
+
+	pool:
+	  vmImage: 'ubuntu-latest'
+
+	variables:
+	  version: 3.19
+	  build: 1
+
+	steps:
+	- script: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev 
+    libvorbis-dev libpthread-stubs0-dev libflac++-dev
+	displayName: 'Install libaries'
+
+	- script: |
+    mkdir build
+    cd build
+    cmake ..
+  displayName: 'Run Cmake'
+	  
+	- script: |
+    cd build
+    make
+  displayName: 'make'
+
+	- script: build/unitTests/unitTests
+	  displayName: "UnitTest"
+
+- job: Windows
+displayName: 'Build Windows'
+	  pool:
+      vmImage: 'windows-2019'
+
+		steps:
+		  - task: CMake@1
+		    inputs:
+		      workingDirectory: 'build'
+		      cmakeArgs: '-A x64 ..'
+		    displayName: 'Cmake'
+
+		  - task: MSBuild@1
+		    inputs:
+		      solution: 'build/JIN4_OutilVisu_Etape8.sln'
+		      maximumCpuCount: true
+		      platform: 'x64'
+		    displayName: 'Building'
+		    
+		  - script: build\unitTests\Debug\unitTests.exe
+		    displayName: 'Run unitTests'
