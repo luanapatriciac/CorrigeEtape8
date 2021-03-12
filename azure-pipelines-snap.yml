@@ -25,8 +25,12 @@ steps:
     mkdir build
     cd build
     cmake ..
-    make
   displayName: 'Run Cmake'
+  
+- script: |
+    cd build
+    make
+  displayName: 'make'
 
 - script: build/unitTests/unitTests
   displayName: "UnitTest"
